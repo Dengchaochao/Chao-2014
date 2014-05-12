@@ -1,0 +1,136 @@
+　　　…………
+　　　public partial class Default1 : System.Web.UI.Page
+　　　{
+　　　    private string name = "";
+　　　    private string phone = "";
+　　　…………
+　　　　　　…………
+　　　　　private string carstyle = "";
+　　　    private string login = "1"; // 1-logined，0-login fail
+　　　
+　　　    protected void Page_Load(object sender, EventArgs e)
+　　　    {
+　　　        try
+　　　        {
+　　　            string username = Request.QueryString["username"].ToString();
+　　　            string pwd = Request.QueryString["pwd"].ToString();
+　　　            name = UserView.Rows[1].Cells[1].Text;
+　　　            phone = UserView.Rows[4].Cells[1].Text;
+　　　            CheckLogin();
+　　　        }
+　　　        　　　catch (Exception ex)
+　　　        {
+　　　            Response.Write("<script language=javascript>alert('login error please check username and password，login again！')</script>");
+　　　            Server.Transfer("~/Default.aspx");
+　　　        }
+　　　    }
+　　　    　　　protected void CheckLogin()
+　　　    {
+　　　        if (UserView.Rows.Count == 0)
+　　　        {
+　　　            Response.Write("<script language=javascript>alert('login error，please check username and password,login again！')</script>");
+　　　            Server.Transfer("~/Default.aspx");
+　　　        }
+　　　    }
+　　　    　　　protected void ModifyBtn_Click(object sender, EventArgs e)
+　　　    {
+　　　        string username = UserView.Rows[0].Cells[1].Text;
+　　　        string name = UserView.Rows[1].Cells[1].Text;
+　　　        string gender = UserView.Rows[2].Cells[1].Text;
+　　　        string identity = UserView.Rows[3].Cells[1].Text;
+　　　        string phone = UserView.Rows[4].Cells[1].Text;
+　　　        string mail = UserView.Rows[5].Cells[1].Text;
+　　　        string add = UserView.Rows[6].Cells[1].Text;
+　　　        string workadd = UserView.Rows[7].Cells[1].Text;
+　　　        Response.Redirect("~/Account/ChangePerInfo.aspx?username=" + username + "&name=" + name + "&gender="
+            + gender + "&identity=" + identity + "&phone=" + phone + "&mail=" + mail + "&add=" + add + "&workadd=" + workadd);
+            　　　}
+　　　    protected void ExitBtn_Click(object sender, EventArgs e)
+　　　    {
+　　　        Response.Redirect("~/Default.aspx");
+　　　    }
+　　　    protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
+　　　    {
+　　　        carstyle = GridView1.SelectedRow.Cells[0].Text;
+　　　        Response.Redirect("~/Online1.aspx?login=" + login + "&carstyle=" + carstyle + "&name=" + name + "&phone=" + phone);
+　　　    }
+　　　    protected void GridView2_SelectedIndexChanged(object sender, EventArgs e)
+　　　    {
+　　　        //string id = GridView2.DataSourceID; // company or person rent car
+　　　        carstyle = GridView2.SelectedRow.Cells[0].Text;
+　　　        Response.Redirect("~/Online1.aspx?login=" + login + "&carstyle=" + carstyle + "&name=" + name + "&phone=" + phone);
+　　　    }
+　　　    protected void GridView3_SelectedIndexChanged(object sender, EventArgs e)
+　　　    {
+　　　        　　　 carstyle = GridView3.SelectedRow.Cells[0].Text;
+　　　        Response.Redirect("~/Online1.aspx?login=" + login + "&carstyle=" + carstyle + "&name=" + name + "&phone=" + phone);
+　　　    }
+　　　}
+　　　protected void LoginBtn_Click(object sender, EventArgs e)
+　　　    {
+　　　        string pwd = 
+　　　　　　　　　MD5.EncryptCode(UserPwdTxt.Text).Replace("-", "");
+　　　        Response.Redirect("~/Default1.aspx?username=" + 								UserNameTxt.Text + "&pwd=" + pwd);
+　　　    }
+public partial class CommerceRent : System.Web.UI.Page
+{
+    private string login = "0"; // 1- have login，0-Dont login
+    private string carstyle = "";
+
+    protected void Page_Load(object sender, EventArgs e)
+    {
+
+    }
+    protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        carstyle = GridView1.SelectedRow.Cells[0].Text;
+        if (login == "0")
+            Response.Redirect("~/Online.aspx?carstyle=" + carstyle);
+        else if (login == "1")
+            Response.Redirect("~/Online1.aspx?login=" + login + "&carstyle=" + carstyle);
+　　　}
+}
+}
+public partial class Price : System.Web.UI.Page  //Price
+{
+    private string login = "0"; // 1-Have login，0-Havent login
+    private string carstyle = "";
+
+    protected void Page_Load(object sender, EventArgs e)
+    {
+
+    }
+    protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        carstyle = GridView1.SelectedRow.Cells[0].Text;
+        if(login == "0")
+            Response.Redirect("~/Online.aspx?carstyle=" + carstyle);
+        else if(login == "1")
+            Response.Redirect("~/Online1.aspx?login=" + login + "&carstyle=" + carstyle);
+    }
+    protected void GridView2_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        //string id = GridView2.DataSourceID; // Company or person borrow car
+        carstyle = GridView2.SelectedRow.Cells[0].Text;
+        if (login == "0")
+            Response.Redirect("~/Online.aspx?carstyle=" + carstyle);
+        else if (login == "1")
+            Response.Redirect("~/Online1.aspx?login=" + login + "&carstyle=" + carstyle);
+    }
+    protected void GridView3_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        carstyle = GridView3.SelectedRow.Cells[0].Text;
+        if (login == "0")
+            Response.Redirect("~/Online.aspx?carstyle=" + carstyle);
+        else if (login == "1")
+            Response.Redirect("~/Online1.aspx?login=" + login + "&carstyle=" + carstyle);
+    }
+    protected void GridView4_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        Response.Redirect("~/Contact.aspx");
+    }
+    protected void GridView5_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        Response.Redirect("~/Contact.aspx");
+    }
+}
