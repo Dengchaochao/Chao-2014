@@ -1,0 +1,5 @@
+　　　…………
+　　　public partial class Default1 : System.Web.UI.Page
+　　　{
+　　　    private string name = "";
+　　　    private string phone = "";
