@@ -1,0 +1,63 @@
+　　　…………
+       // Add Administrator
+　　　protected void AddBtn_Click(object sender, EventArgs e)
+　　　    {
+　　　        string adminnumb = AdminNumb.Text;
+　　　        string adminpwd = AdminPwd.Text;
+　　　        try
+　　　        {
+　　　            AdminManageSDS.InsertCommand = "insert into Administor						('Usename', 'password') values('" + adminnumb + 						"','" + adminpwd + "')";
+　　　            AdminManageSDS.Insert();
+　　　            Response.Write("<script language=javascript>
+　　alert('congratutate to you，Add administor sucessfull！')</script>");
+　　　        }
+　　　        catch (Exception ex)
+　　　        {
+　　　            Response.Write("<script language=javascript>
+　　alert('Add administor fail，Please try it later！		')</script>");
+　　　        }
+　　　    }
+　　public partial class _Default : System.Web.UI.Page
+　　{
+　　    private string carstyle = "";
+　　    private string login = "0"; // 1-Have login，0-Have not login
+　　
+　　    protected void Page_Load(object sender, EventArgs e)
+　　    {
+　　        
+　　    }
+　　    protected void LoginBtn_Click(object sender, EventArgs e)
+　　    {
+　　        string pwd = MD5.EncryptCode(UserPwdTxt.Text).Replace("-", "");
+　　        Response.Redirect("~/Default1.aspx?username=" + UserNameTxt.Text + "&pwd=" + pwd);
+　　    }
+　　    protected void RegBtn_Click(object sender, EventArgs e)
+　　    {
+　　        Response.Redirect("~/Account/Register.aspx");
+　　    }
+　　    protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
+　　    {
+　　        carstyle = GridView1.SelectedRow.Cells[0].Text;
+　　        if (login == "0")
+　　            Response.Redirect("~/Online.aspx?carstyle=" + carstyle);
+　　        else if (login == "1")
+　　            Response.Redirect("~/Online1.aspx?login=" + login + "&carstyle=" + carstyle);
+　　    }
+　　    protected void GridView2_SelectedIndexChanged(object sender, EventArgs e)
+　　    {
+　　        //string id = GridView2.DataSourceID; // Company or person borrow car
+　　        carstyle = GridView2.SelectedRow.Cells[0].Text;
+　　        if (login == "0")
+　　            Response.Redirect("~/Online.aspx?carstyle=" + carstyle);
+　　        else if (login == "1")
+　　            Response.Redirect("~/Online1.aspx?login=" + login + "&carstyle=" + carstyle);
+　　    }
+　　    protected void GridView3_SelectedIndexChanged(object sender, EventArgs e)
+　　    {
+　　        carstyle = GridView3.SelectedRow.Cells[0].Text;
+　　        if (login == "0")
+　　            Response.Redirect("~/Online.aspx?carstyle=" + carstyle);
+　　        else if (login == "1")
+　　            Response.Redirect("~/Online1.aspx?login=" + login + "&carstyle=" + carstyle);
+　　    }
+　　}
