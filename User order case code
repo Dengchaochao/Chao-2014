@@ -1,0 +1,78 @@
+public partial class Online : System.Web.UI.Page
+{
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        //DDLCarStyle.DataSourceID = "SqlDataSource1";
+        //DDLCarStyle.DataTextField = "CarStyle";
+        //DDLCarStyle.DataValueField = "CarStyle";
+    }
+    protected void CarStyleRBtn_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        switch (CarStyleRBtn.SelectedIndex)
+        {
+            case 0: DDLCarStyle.DataSourceID = "SqlDataSource1";
+                DDLCarStyle.DataTextField = "CarStyle";
+                DDLCarStyle.DataValueField = "CarStyle";
+                break;
+            case 1: DDLCarStyle.DataSourceID = "SqlDataSource2";
+                DDLCarStyle.DataTextField = "CarStyle";
+                DDLCarStyle.DataValueField = "CarStyle";
+                break;
+            case 2: DDLCarStyle.DataSourceID = "SqlDataSource3";
+                DDLCarStyle.DataTextField = "CarStyle";
+                DDLCarStyle.DataValueField = "CarStyle";
+                break;
+            case 3: DDLCarStyle.DataSourceID = "SqlDataSource4";
+                DDLCarStyle.DataTextField = "CarStyle";
+                DDLCarStyle.DataValueField = "CarStyle";
+                break;
+            case 4: DDLCarStyle.DataSourceID = "SqlDataSource5";
+                DDLCarStyle.DataTextField = "CarStyle";
+                DDLCarStyle.DataValueField = "CarStyle";
+                break;
+        }
+    }
+    protected void SubmitOrderBtn_Click(object sender, EventArgs e)
+    {
+        string caruse = CarUseRBtn.SelectedValue; // use
+        string carname = DDLCarStyle.SelectedValue; // carstyle
+        string begintime = "2013-11-3"; // 
+        string endtime = "2013-11-3"; // 
+        string cardriver = CarDriverRBtn.SelectedValue; // 
+        string caradd = CarAddTxt.Text; // 
+        string phone = PhoneTxt.Text; // 
+        string name = NameTxt.Text; // 
+        string mail = MailBoxTxt.Text; // 
+        string remarks = RemarksTxt.Text; // 
+        try
+        {
+            SubmitOrderSqlDS.InsertCommand = "insert into  values('" + caruse + "','" + carname + "','"
+                + begintime + "','" + endtime + "','" + cardriver + "','" + caradd + "','" + phone
+                + "','" + name + "','" + mail + "','" + remarks + "')";
+            SubmitOrderSqlDS.Insert();
+            Response.Write("<script language=javascript>alert('congratulate you，order is present sucessful ！')</script>");
+            Response.Redirect("~/Price.aspx");
+        }
+        catch (Exception ex)
+        {
+            Response.Write("<script language=javascript>alert('Order present fail，please try it later！')</script>");
+        }
+　　　}
+　　　public partial class Marry : System.Web.UI.Page //Marry Rent 
+　　　{
+　　　    private string login = "0"; // 1-Have login，0-Have not login
+　　　    private string carstyle = "";
+　　　
+　　　    protected void Page_Load(object sender, EventArgs e)
+　　　    {
+　　　
+　　　    }
+　　　    protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
+　　　    {
+　　　        carstyle = GridView1.SelectedRow.Cells[0].Text;
+　　　        if (login == "0")
+　　　            Response.Redirect("~/Online.aspx?carstyle=" + carstyle);
+　　　        else if (login == "1")
+　　　            Response.Redirect("~/Online1.aspx?login=" + login + "&carstyle=" + carstyle);
+　　　    }
+　　　}
